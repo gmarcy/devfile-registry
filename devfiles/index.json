@@ -49,5 +49,14 @@
     "links": {
       "self": "/devfiles/springBoot/devfile.yaml"
     }
+  },
+  {
+    "displayName": "WebSphere Traditional",
+    "description": "WebSphere Traditional application in Java",
+    "projectType": "docker",
+    "language": "java",
+    "links": {
+      "self": "/devfiles/twas/devfile.yaml"
+    }
   }
 ]
