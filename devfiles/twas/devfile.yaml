@@ -1,40 +1,50 @@
+---
 apiVersion: 1.0.0
 metadata:
-  generateName: twas
+  generateName: java-twas
 attributes:
   odo.autorestart: "false"
 projects:
-- name: twas
+- name: twasproject
   source:
     type: git
-    location: https://github.com/gmarcy/twasTemplate.git
+    location: https://github.com/gmarcy/twasproject.git
 components:
 - type: chePlugin
   id: redhat/java/latest
   memoryLimit: 1512Mi
-- alias: devruntime
-  mountSources: true
-  type: dockerimage
-  image: gmarcy/twas-dev:latest
+- type: dockerimage
+  image: gmarcy/twasbuild
+  alias: tools
   memoryLimit: 768Mi
+  command: ['tail']
+  args: [ '-f', '/dev/null']
+  mountSources: true
   volumes:
   - name: m2
     containerPath: /home/user/.m2
+- type: dockerimage
+  image: gmarcy/twasruntime
+  alias: runtime
+  memoryLimit: 768Mi
+  command: ['tail']
+  args: [ '-f', '/dev/null']
   endpoints:
   - name: 9080/tcp
     port: 9080
   - name: 9443/tcp
     port: 9443
+  mountSources: false
 commands:
-- actions:
-  - command: /artifacts/bin/build.sh
-    component: devruntime
-    type: exec
-    workdir: /projects/twas
-  name: devBuild
-- actions:
-  - command: /artifacts/bin/run.sh
-    component: devruntime
-    type: exec
-    workdir: /projects/twas
-  name: devRun
+- name: devBuild
+  actions:
+  - type: exec
+    component: tools
+    command: "/artifacts/bin/build.sh"
+    workdir: /projects/twasproject
+- name: devRun
+  actions:
+  - type: exec
+    component: runtime
+    command: "/artifacts/bin/run.sh"
+    workdir: /

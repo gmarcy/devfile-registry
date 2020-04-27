@@ -52,7 +52,7 @@
   },
   {
     "displayName": "WebSphere Traditional",
-    "description": "WebSphere Traditional application in Java",
+    "description": "WebSphere Traditional Java application",
     "projectType": "docker",
     "language": "java",
     "links": {

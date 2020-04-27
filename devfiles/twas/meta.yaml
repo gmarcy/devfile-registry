@@ -1,5 +1,5 @@
 displayName: "WebSphere Traditional"
-description: "WebSphere Traditional application in Java"
+description: "WebSphere Traditional Java application"
 language: "java"
 projectType: "docker"
-location: "https://github.com/gmarcy/twasTemplate"
+location: "https://github.com/gmarcy/twasproject"
